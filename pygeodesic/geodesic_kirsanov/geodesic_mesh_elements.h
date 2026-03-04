@@ -341,6 +341,11 @@ public:
 
 	PointType type(){return m_p ? m_p->type() : UNDEFINED_POINT;};
 	base_pointer& base_element(){return m_p;};
+	unsigned base_element_id()
+	{
+		assert(m_p != NULL);
+		return m_p->id();
+	};
 protected:
 	base_pointer m_p;			//could be face, vertex or edge pointer
 };
