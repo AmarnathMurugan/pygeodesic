@@ -5,22 +5,23 @@ requires = [
     "cython>=3.0.7",
     "numpy>=2,<3",
 ]
-
 build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
-junit_family= "legacy"
+junit_family = "legacy"
 filterwarnings = [
-    # bogus numpy ABI warning (see numpy/#432)
     "ignore:.*numpy.dtype size changed.*:RuntimeWarning",
-    "ignore:.*numpy.ufunc size changed.*:RuntimeWarning"
+    "ignore:.*numpy.ufunc size changed.*:RuntimeWarning",
 ]
 
 [tool.cibuildwheel]
-archs = ["auto64"]  # 64-bit only
-skip = "pp* *musllinux* cp38-* cp314-*" # Build CPython 3.9-3.13
+archs = ["auto64"]
+skip = "pp* *musllinux* cp38-* cp314-*"
 test-requires = "pytest"
 test-command = "pytest {project}/tests"
 
 [tool.cibuildwheel.macos]
 archs = ["native"]
+
+[tool.cibuildwheel.linux]
+manylinux-x86_64-image = "manylinux2014"

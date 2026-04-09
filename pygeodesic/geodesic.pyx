@@ -66,9 +66,9 @@ cdef extern from "geodesic_kirsanov/geodesic_algorithm_exact.h" namespace "geode
     cdef cppclass GeodesicAlgorithmExact:
         GeodesicAlgorithmExact(Mesh*)
         void propagate(vector[SurfacePoint]&, double, vector[SurfacePoint]*)
-        void propagate(vector[SurfacePoint]&, double)
+        void propagate(vector[SurfacePoint]&, double) nogil
         unsigned best_source(SurfacePoint&, double&)
-        void trace_back(SurfacePoint&, vector[SurfacePoint]&)
+        void trace_back(SurfacePoint&, vector[SurfacePoint]&) nogil
         void geodesic(SurfacePoint&, SurfacePoint&, vector[SurfacePoint]&)
 
 cdef extern from "geodesic_kirsanov/geodesic_algorithm_base.h" namespace "geodesic":
@@ -563,8 +563,8 @@ cdef class PyGeodesicAlgorithmExact:
 
         for i in source_indices:
             all_sources.push_back(SurfacePoint(&self.mesh.vertices()[i]))
-
-        self.algorithm.propagate(all_sources, max_distance)
+        with nogil:
+            self.algorithm.propagate(all_sources, max_distance)
 
     def geodesicDistances(self, source_indices=None, target_indices=None,
                           double max_distance=GEODESIC_INF):
@@ -628,7 +628,8 @@ cdef class PyGeodesicAlgorithmExact:
         cdef Py_ssize_t i
 
         target = SurfacePoint(&self.mesh.vertices()[target_idx])
-        self.algorithm.trace_back(target, path)
+        with nogil:
+            self.algorithm.trace_back(target, path)
 
         result = []
         for i in range(<Py_ssize_t>path.size()):

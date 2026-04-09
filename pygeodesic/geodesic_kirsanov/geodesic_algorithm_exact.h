@@ -544,9 +544,14 @@ inline void GeodesicAlgorithmExact::propagate(std::vector<SurfacePoint>& sources
 	m_queue_max_size = 0;
 
 	IntervalWithStop candidates[2];
-
+	unsigned safety_limit = std::max((size_t)10000000, m_mesh->edges().size() * 100);
 	while(!m_queue.empty())
 	{
+		if(m_iterations > safety_limit)
+		{
+			std::cout<<"Safety limit reached. Stopping propagation."<<std::endl;
+			break;
+		}
 		m_queue_max_size = std::max(m_queue.size(), (size_t)m_queue_max_size);
 
 		unsigned const check_period = 10;
