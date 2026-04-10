@@ -27,7 +27,7 @@ archs = ["x86_64", "arm64"]
 manylinux-x86_64-image = "manylinux2014"
 
 [project]
-name = "pygeodesic"
+name = "pygeodesic-am"
 dynamic = ["version"]
 description = "Python library for calculating geodesic distance on triangular based surface meshes"
 readme = "README.md"
