@@ -21,7 +21,7 @@ test-requires = "pytest"
 test-command = 'pytest "{project}/tests"'
 
 [tool.cibuildwheel.macos]
-archs = ["native"]
+archs = ["x86_64", "arm64"]
 
 [tool.cibuildwheel.linux]
 manylinux-x86_64-image = "manylinux2014"
