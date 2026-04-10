@@ -18,10 +18,43 @@ filterwarnings = [
 archs = ["auto64"]
 skip = "pp* *musllinux* cp38-* cp314-*"
 test-requires = "pytest"
-test-command = "pytest {project}/tests"
+test-command = 'pytest "{project}/tests"'
 
 [tool.cibuildwheel.macos]
 archs = ["native"]
 
 [tool.cibuildwheel.linux]
 manylinux-x86_64-image = "manylinux2014"
+
+[project]
+name = "pygeodesic"
+dynamic = ["version"]
+description = "Python library for calculating geodesic distance on triangular based surface meshes"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Michael Hogg", email = "michael.christopher.hogg@gmail.com"}]
+keywords = ["geodesic", "distance", "path", "triangle", "mesh", "python", "cython"]
+requires-python = ">=3.9"
+dependencies = ["numpy>=2,<3"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Cython",
+    "Programming Language :: C++",
+]
+
+[project.urls]
+Homepage = "https://github.com/AmarnathMurugan/pygeodesic"
+
+[tool.setuptools.dynamic]
+version = {attr = "pygeodesic.version.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["pygeodesic*"]
