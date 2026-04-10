@@ -21,10 +21,7 @@ test-requires = "pytest"
 test-command = 'pytest "{project}/tests"'
 
 [tool.cibuildwheel.macos]
-archs = ["x86_64", "arm64"]
-
-[tool.cibuildwheel.linux]
-manylinux-x86_64-image = "manylinux2014"
+archs = ["x86_64", "arm64"] 
 
 [project]
 name = "pygeodesic-am"
